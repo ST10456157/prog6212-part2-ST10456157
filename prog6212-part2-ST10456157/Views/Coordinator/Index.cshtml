@@ -1,46 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Coordinator Dashboard";
-}
+﻿@model IEnumerable<prog6212_part2_ST10456157.Models.Claim>
 
-<h2>Programme Coordinator Dashboard</h2>
+<h2>Coordinator Dashboard</h2>
 
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Claim ID</th>
+            <th>ID</th>
             <th>Lecturer</th>
             <th>Hours</th>
+            <th>Rate</th>
+            <th>Total</th>
             <th>Document</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>001</td>
-            <td>John Doe</td>
-            <td>20</td>
-            // Example static document link// 
-            <td>
-                <a href="/docs/sample-claim.pdf" target="_blank" class="btn btn-link">View File</a>
-            </td>
-            <td>
-                <button class="btn btn-success">Verify</button>
-                <button class="btn btn-danger">Reject</button>
-            </td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>Jane Smith</td>
-            <td>15</td>
-            // Placeholder doc //
-            <td>
-                <a href="/docs/supporting-doc.png" target="_blank" class="btn btn-link">View File</a>
-            </td>
-            <td>
-                <button class="btn btn-success">Verify</button>
-                <button class="btn btn-danger">Reject</button>
-            </td>
-        </tr>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.ClaimId</td>
+                <td>@c.LecturerName</td>
+                <td>@c.HoursWorked</td>
+                <td>@c.HourlyRate</td>
+                <td>@(c.HoursWorked* c.HourlyRate)</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(c.DocumentName))
+                    {
+                        <a href="~/uploads/@c.DocumentName" target="_blank">View File</a>
+                    }
+                </td>
+                <td>
+                    <form asp-action="Verify" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@c.ClaimId" />
+                        <button class="btn btn-success btn-sm">Verify</button>
+                    </form>
+                    <form asp-action="Reject" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@c.ClaimId" />
+                        <button class="btn btn-danger btn-sm">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
