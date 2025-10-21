@@ -1,37 +1,72 @@
-﻿@{
-    ViewData["Title"] = "Lecturer Dashboard";
-}
-
-<h2>Lecturer Dashboard</h2>
-@{
-    ViewData["Title"] = "Lecturer Dashboard";
-}
+﻿@model IEnumerable<prog6212_part2_ST10456157.Models.Claim>
 
 <h2>Lecturer Dashboard</h2>
 
-
-<button class="btn btn-primary">Submit New Claim</button>
-
-
-<form>
+<form asp-action="SubmitClaim" method="post" enctype="multipart/form-data">
     <div class="form-group mt-3">
-        <label>Upload Supporting Document:</label>
-        <input type="file" class="form-control" />
+        <label>Lecturer Name</label>
+        <input name="LecturerName" class="form-control" required />
     </div>
-    <button type="submit" class="btn btn-success mt-2">Upload</button>
+    <div class="form-group mt-3">
+        <label>Hours Worked</label>
+        <input type="number" name="HoursWorked" class="form-control" required />
+    </div>
+    <div class="form-group mt-3">
+        <label>Hourly Rate</label>
+        <input type="number" name="HourlyRate" class="form-control" required />
+    </div>
+    <div class="form-group mt-3">
+        <label>Upload Supporting Document</label>
+        <input type="file" name="file" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit New Claim</button>
 </form>
 
+<hr />
 
-<h3 class="mt-4">My Claims</h3>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<h3>My Claims</h3>
 <table class="table table-bordered">
     <thead>
-        <tr><th>Claim ID</th><th>Date</th><th>Status</th></tr>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Hours</th>
+            <th>Rate</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Document</th>
+        </tr>
     </thead>
     <tbody>
-        <tr><td>001</td><td>2025-09-15</td><td>Pending</td></tr>
-        <tr><td>002</td><td>2025-08-15</td><td>Approved</td></tr>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.ClaimId</td>
+                <td>@c.DateSubmitted.ToShortDateString()</td>
+                <td>@c.HoursWorked</td>
+                <td>@c.HourlyRate</td>
+                <td>@(c.HoursWorked* c.HourlyRate)</td>
+                <td>@c.Status</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(c.DocumentName))
+                    {
+                        <a href="~/uploads/@c.DocumentName" target="_blank">View File</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
 
 
 
