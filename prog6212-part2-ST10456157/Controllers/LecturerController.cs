@@ -21,7 +21,7 @@ namespace prog6212_part1_ST10456157.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var claims = _context.Claims.ToList();
+            var claims = _context.Claims.ToList(); 
             return View(claims);
         }
 
