@@ -1,44 +1,43 @@
-﻿@{
-    ViewData["Title"] = "Manager Dashboard";
-}
+﻿@model IEnumerable<prog6212_part2_ST10456157.Models.Claim>
 
-<h2>Academic Manager Dashboard</h2>
+<h2>Manager Dashboard</h2>
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Claim ID</th>
+            <th>ID</th>
             <th>Lecturer</th>
+            <th>Total</th>
             <th>Status</th>
             <th>Document</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>001</td>
-            <td>John Doe</td>
-            <td>Verified</td>
-            //Static sample doc//
-            <td>
-                <a href="/docs/sample-claim.pdf" target="_blank" class="btn btn-link">View File</a>
-            </td>
-            <td>
-                <button class="btn btn-primary">Approve</button>
-                <button class="btn btn-warning">Reject</button>
-            </td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>Jane Smith</td>
-            <td>Pending</td>
-            <td>
-                <a href="/docs/supporting-doc.png" target="_blank" class="btn btn-link">View File</a>
-            </td>
-            <td>
-                <button class="btn btn-primary">Approve</button>
-                <button class="btn btn-warning">Reject</button>
-            </td>
-        </tr>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.ClaimId</td>
+                <td>@c.LecturerName</td>
+                <td>@(c.HoursWorked* c.HourlyRate)</td>
+                <td>@c.Status</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(c.DocumentName))
+                    {
+                        <a href="~/uploads/@c.DocumentName" target="_blank">View File</a>
+                    }
+                </td>
+                <td>
+                    <form asp-action="Approve" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@c.ClaimId" />
+                        <button class="btn btn-primary btn-sm">Approve</button>
+                    </form>
+                    <form asp-action="Reject" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@c.ClaimId" />
+                        <button class="btn btn-warning btn-sm">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
