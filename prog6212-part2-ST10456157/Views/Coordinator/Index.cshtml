@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Coordinator Dashboard";
+}
+
+<h2>Programme Coordinator Dashboard</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Lecturer</th>
+            <th>Hours</th>
+            <th>Document</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>001</td>
+            <td>John Doe</td>
+            <td>20</td>
+            // Example static document link// 
+            <td>
+                <a href="/docs/sample-claim.pdf" target="_blank" class="btn btn-link">View File</a>
+            </td>
+            <td>
+                <button class="btn btn-success">Verify</button>
+                <button class="btn btn-danger">Reject</button>
+            </td>
+        </tr>
+        <tr>
+            <td>002</td>
+            <td>Jane Smith</td>
+            <td>15</td>
+            // Placeholder doc //
+            <td>
+                <a href="/docs/supporting-doc.png" target="_blank" class="btn btn-link">View File</a>
+            </td>
+            <td>
+                <button class="btn btn-success">Verify</button>
+                <button class="btn btn-danger">Reject</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

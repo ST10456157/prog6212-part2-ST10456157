@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Manager Dashboard";
+}
+
+<h2>Academic Manager Dashboard</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Lecturer</th>
+            <th>Status</th>
+            <th>Document</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>001</td>
+            <td>John Doe</td>
+            <td>Verified</td>
+            //Static sample doc//
+            <td>
+                <a href="/docs/sample-claim.pdf" target="_blank" class="btn btn-link">View File</a>
+            </td>
+            <td>
+                <button class="btn btn-primary">Approve</button>
+                <button class="btn btn-warning">Reject</button>
+            </td>
+        </tr>
+        <tr>
+            <td>002</td>
+            <td>Jane Smith</td>
+            <td>Pending</td>
+            <td>
+                <a href="/docs/supporting-doc.png" target="_blank" class="btn btn-link">View File</a>
+            </td>
+            <td>
+                <button class="btn btn-primary">Approve</button>
+                <button class="btn btn-warning">Reject</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
